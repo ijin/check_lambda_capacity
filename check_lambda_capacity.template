@@ -1,0 +1,295 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Metadata": {
+    "AWS::CloudFormation::Designer": {
+      "e10a3168-d399-4f1f-9539-2d0b5df7766f": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 80,
+          "y": 210
+        },
+        "z": 0,
+        "embeds": []
+      },
+      "2c5f7ffc-e4d7-4871-a02b-cc8df00125a5": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 180,
+          "y": 210
+        },
+        "z": 0,
+        "embeds": [],
+        "isassociatedwith": [
+          "e10a3168-d399-4f1f-9539-2d0b5df7766f"
+        ],
+        "dependson": [
+          "e10a3168-d399-4f1f-9539-2d0b5df7766f"
+        ]
+      },
+      "b06e3549-030c-4bb3-b88c-58f892bd9992": {
+        "source": {
+          "id": "2c5f7ffc-e4d7-4871-a02b-cc8df00125a5"
+        },
+        "target": {
+          "id": "e10a3168-d399-4f1f-9539-2d0b5df7766f"
+        },
+        "z": 1
+      },
+      "a8dbe524-ef9e-4c49-9cc9-4b69f076271f": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 180,
+          "y": 280
+        },
+        "z": 0,
+        "embeds": [],
+        "dependson": [
+          "e10a3168-d399-4f1f-9539-2d0b5df7766f"
+        ],
+        "isrelatedto": [
+          "e10a3168-d399-4f1f-9539-2d0b5df7766f"
+        ]
+      },
+      "8e58cbe5-1541-40ab-8ce7-501e9b600ef3": {
+        "source": {
+          "id": "a8dbe524-ef9e-4c49-9cc9-4b69f076271f"
+        },
+        "target": {
+          "id": "e10a3168-d399-4f1f-9539-2d0b5df7766f"
+        },
+        "z": 11
+      },
+      "afe7c1e3-cc35-4f0c-a1d0-d98bf6dca325": {
+        "source": {
+          "id": "2c5f7ffc-e4d7-4871-a02b-cc8df00125a5",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(4) circle:nth-child(1)     ",
+          "port": "AWS::DependencyLink-*"
+        },
+        "target": {
+          "id": "e10a3168-d399-4f1f-9539-2d0b5df7766f"
+        },
+        "z": 13
+      },
+      "4414ade3-f4c5-49f3-960d-91f35f4de691": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 80,
+          "y": 280
+        },
+        "z": 0,
+        "embeds": []
+      },
+      "173f4868-0587-4bdc-91d9-5ce29d6e5b6b": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 80,
+          "y": 350
+        },
+        "z": 0,
+        "embeds": [],
+        "isrelatedto": [
+          "4414ade3-f4c5-49f3-960d-91f35f4de691"
+        ]
+      }
+    }
+  },
+  "Resources": {
+    "LambdaIAMPolicy": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "Roles": [
+          {
+            "Ref": "IAMRole"
+          }
+        ],
+        "PolicyName": "check_report_lambda",
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+              ],
+              "Resource": "arn:aws:logs:*:*:*"
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "lambda:ListFunctions"
+              ],
+              "Resource": [
+                "*"
+              ]
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "cloudwatch:PutMetricData"
+              ],
+              "Resource": [
+                "*"
+              ]
+            }
+          ]
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "2c5f7ffc-e4d7-4871-a02b-cc8df00125a5"
+        }
+      },
+      "DependsOn": [
+        "IAMRole"
+      ]
+    },
+    "LF4N8DB": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Description": "Checks and graphs the total capacity used by lambda in a region.",
+        "Role": {
+          "Fn::GetAtt": [
+            "IAMRole",
+            "Arn"
+          ]
+        },
+        "Handler": "lambda_function.lambda_handler",
+        "Runtime": "python2.7",
+        "MemorySize": 256,
+        "Timeout": 15,
+        "Code": {
+          "S3Bucket": "ijin",
+          "S3Key": "aws/lambda/check_lambda_capacity/lambda_function.zip"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "a8dbe524-ef9e-4c49-9cc9-4b69f076271f"
+        }
+      },
+      "DependsOn": [
+        "IAMRole"
+      ]
+    },
+    "IAMRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              },
+              "Effect": "Allow",
+              "Sid": ""
+            }
+          ]
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "e10a3168-d399-4f1f-9539-2d0b5df7766f"
+        }
+      }
+    },
+    "CW4MW7T": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "AlarmDescription": "Lambda capacity usage alert",
+        "Namespace": "lambda",
+        "MetricName": "size",
+        "Statistic": "Average",
+        "Period": 300,
+        "Unit": "Bytes",
+        "EvaluationPeriods": 2,
+        "Threshold": {
+          "Ref": "CapacityAlarmThreshold"
+        },
+        "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+        "AlarmActions": [
+          {
+            "Fn::If": [
+              "CreateSNSTopic",
+              {
+                "Ref": "SNS"
+              },
+              {
+                "Ref": "SNSArn"
+              }
+            ]
+          }
+        ],
+        "OKActions": [
+          {
+            "Fn::If": [
+              "CreateSNSTopic",
+              {
+                "Ref": "SNS"
+              },
+              {
+                "Ref": "SNSArn"
+              }
+            ]
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "173f4868-0587-4bdc-91d9-5ce29d6e5b6b"
+        }
+      }
+    },
+    "SNS": {
+      "Type": "AWS::SNS::Topic",
+      "Properties": {
+        "DisplayName": "lambda capacity alert"
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "4414ade3-f4c5-49f3-960d-91f35f4de691"
+        }
+      },
+      "Condition": "CreateSNSTopic"
+    }
+  },
+  "Parameters": {
+    "CapacityAlarmThreshold": {
+      "Description": "Capacity (Bytes) thershold for CloudWatch alarm",
+      "Type": "Number",
+      "Default": 100000000
+    },
+    "SNSArn": {
+      "Description": "Existing SNS topic ARN to send CloudWatch alarms (optional)",
+      "Type": "String"
+    }
+  },
+  "Conditions": {
+    "CreateSNSTopic": {
+      "Fn::Equals": [
+        {
+          "Ref": "SNSArn"
+        },
+        ""
+      ]
+    }
+  }
+}
