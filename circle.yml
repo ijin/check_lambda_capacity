@@ -13,5 +13,5 @@ deployment:
     branch: master
     commands:
       - |
-        aws --region $REGION cp $CF s3://$S3/aws/lambda/check_lambda_capacity/  --acl public-read
+        aws --region $REGION s3 cp $CF s3://$S3/aws/lambda/check_lambda_capacity/  --acl public-read
 
