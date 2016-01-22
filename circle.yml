@@ -2,15 +2,16 @@ machine:
   environment:
     S3: ijin
     CF: check_lambda_capacity.template
+    REGION: ap-northeast-1
 test:
   pre:
     - aws --version
   override:
-    - aws cloudformation validate-template --template-body file://$CF
+    - aws --region $REGION cloudformation validate-template --template-body file://$CF
 deployment:
   master:
     branch: master
     commands:
       - |
-        aws --region ap-northeast-1 cp $CF s3://$S3/aws/lambda/check_lambda_capacity/  --acl public-read
+        aws --region $REGION cp $CF s3://$S3/aws/lambda/check_lambda_capacity/  --acl public-read
 
