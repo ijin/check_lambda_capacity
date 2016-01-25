@@ -6,31 +6,32 @@ region = os.getenv('AWS_REGION','ap-northeast-1')
 client = boto3.client('lambda', region_name=region)
 cloudwatch = boto3.client('cloudwatch', region_name=region)
 
-def calculate_capacity(next_marker=None):
+def calculate_capacity(max_items=500, next_marker=None):
     if next_marker:
-        r = client.list_functions(MaxItems=500, Marker=next_marker)
+        r = client.list_functions(MaxItems=max_items, Marker=next_marker)
     else:
-        r = client.list_functions(MaxItems=500)
+        r = client.list_functions(MaxItems=max_items)
 
     size = sum(calculate_versions_capacity(f['FunctionName']) for f in r['Functions'])
 
     if 'NextMarker' in r:
-        return size + lambda_size_r(next_marker=r['NextMarker'])
+        return size + calculate_capacity(max_items=max_items, next_marker=r['NextMarker'])
     else:
         return size
 
-def calculate_versions_capacity(function_name, next_marker=None):
+def calculate_versions_capacity(function_name, max_items=500, next_marker=None):
     if next_marker:
         r = client.list_versions_by_function(
-            FunctionName=function_name, MaxItems=500, Marker=next_marker)
+            FunctionName=function_name, MaxItems=max_items, Marker=next_marker)
     else:
         r = client.list_versions_by_function(
-            FunctionName=function_name, MaxItems=500)
+            FunctionName=function_name, MaxItems=max_items)
 
     size = sum((f['CodeSize']) for f in r['Versions'])
 
     if 'NextMarker' in r:
-        return size + calculate_versions_capacity(function_name=function_name, next_marker=r['NextMarker'])
+        return size + calculate_versions_capacity(
+            function_name=function_name, max_items=max_items, next_marker=r['NextMarker'])
     else:
         return size
 

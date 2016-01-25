@@ -19,9 +19,13 @@ class LambdaFunctionTestCase(TestCase):
         lambda_function.cloudwatch = self.session.client('cloudwatch', region_name='us-east-1')
 
     def test_calculate_capacity(self):
-        self.pill.prefix = 'all'
         neq_(1236380, lambda_function.calculate_capacity())
         eq_(7379387, lambda_function.calculate_capacity())
+
+    def test_calculate_capacity_paginate(self):
+        self.pill.prefix = 'paginate'
+        neq_(1236380, lambda_function.calculate_capacity(max_items=3))
+        eq_(7379387, lambda_function.calculate_capacity(max_items=3))
 
     def test_calculate_versions_capacity(self):
         self.pill.prefix = 'single'
@@ -29,18 +33,18 @@ class LambdaFunctionTestCase(TestCase):
         neq_(0, lambda_function.calculate_versions_capacity(function_name=f))
         eq_(6143382, lambda_function.calculate_versions_capacity(function_name=f))
 
+    def test_calculate_versions_capacity_paginate(self):
+        self.pill.prefix = 'single-paginate'
+        f = 'hello_python'
+        neq_(0, lambda_function.calculate_versions_capacity(function_name=f, max_items=1))
+        eq_(6143382, lambda_function.calculate_versions_capacity(function_name=f, max_items=1))
+
     def test_put_cw(self):
         self.pill.prefix = ''
         service = 'monitoring'
         operation = 'PutMetricData'
         json_file = self.data_path + '/{}.{}_1.json'.format(service, operation)
-        #json_file = self.pill.get_new_file_path(service,operation)
         with open(json_file) as data_file:
             response = json.load(data_file)
         eq_(response['data'], lambda_function.put_cw('lambda', 'size', 123, 'Bytes'))
-#
-#
-#    def test_lambda_size_r_bits(self):
-#        self.pill.prefix = 'bits'
-#        ok_(True)
-#        eq_(1236380, lambda_function.lambda_size_r(next_marker=3))
+
