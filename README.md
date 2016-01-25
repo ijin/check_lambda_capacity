@@ -1,5 +1,7 @@
 # check_lambda_capacity
 
+[![Build status](https://circleci.com/gh/ijin/check_lambda_capacity.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/ijin/check_lambda_capacity)
+
 Lambda function (and CloudFormation template) which checks the total capacity of all Lambda functions in a region.
 
 ## Why
