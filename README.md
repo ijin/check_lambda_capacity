@@ -9,7 +9,7 @@ The total size of all the deployment packages that can be uploaded per region is
 
 ## How
 
-This lambda function uses the `ListFunctions` API iterating and summing up their `CodeSize`, and posts the value (in Bytes) to CloudWatch.
+This lambda function uses the `ListFunctions` and `ListVersionsByFunction` API iterating and summing up their `CodeSize`, and posts the value (in Bytes) to CloudWatch.
 
 A CloudFormation template is provided to help with the creation of necessary resources, in addition to configuring an alarm.
 
