@@ -1,0 +1,25 @@
+{
+    "status_code": 200, 
+    "data": {
+        "ResponseMetadata": {
+            "HTTPStatusCode": 200, 
+            "RequestId": "b250cf0f-c132-11e5-a8b8-ef37c4dff2d4"
+        }, 
+        "Versions": [
+            {
+                "Version": "$LATEST", 
+                "CodeSha256": "ekyAg493bNMFwmFgeVVr7kfNIih8/qFW/rycDZpDfRc=", 
+                "FunctionName": "slack_git", 
+                "MemorySize": 128, 
+                "CodeSize": 378, 
+                "FunctionArn": "arn:aws:lambda:ap-northeast-1:123456789000:function:slack_git:$LATEST", 
+                "Handler": "lambda_function.lambda_handler", 
+                "Role": "arn:aws:iam::123456789000:role/lambda_exec_role", 
+                "Timeout": 10, 
+                "LastModified": "2015-10-30T16:03:47.300+0000", 
+                "Runtime": "python2.7", 
+                "Description": "A simple backend (read/write to DynamoDB) with a RESTful API endpoint using Amazon API Gateway."
+            }
+        ]
+    }
+}

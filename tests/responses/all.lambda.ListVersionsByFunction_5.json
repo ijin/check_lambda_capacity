@@ -1,0 +1,25 @@
+{
+    "status_code": 200, 
+    "data": {
+        "ResponseMetadata": {
+            "HTTPStatusCode": 200, 
+            "RequestId": "b23cfbfb-c132-11e5-8697-555283380159"
+        }, 
+        "Versions": [
+            {
+                "Version": "$LATEST", 
+                "CodeSha256": "YMIwYAxCd8dinoxD2tsGgl9e8TrhU17h2if1U/R+DA8=", 
+                "FunctionName": "serverless-handson", 
+                "MemorySize": 512, 
+                "CodeSize": 1231615, 
+                "FunctionArn": "arn:aws:lambda:ap-northeast-1:123456789000:function:serverless-handson:$LATEST", 
+                "Handler": "lambda_function.lambda_handler", 
+                "Role": "arn:aws:iam::123456789000:role/lambda_s3_exec_role", 
+                "Timeout": 15, 
+                "LastModified": "2016-01-15T13:45:45.358+0000", 
+                "Runtime": "python2.7", 
+                "Description": "An Amazon S3 trigger that retrieves metadata for the object that has been updated."
+            }
+        ]
+    }
+}

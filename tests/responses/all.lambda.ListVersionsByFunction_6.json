@@ -1,0 +1,25 @@
+{
+    "status_code": 200, 
+    "data": {
+        "ResponseMetadata": {
+            "HTTPStatusCode": 200, 
+            "RequestId": "b2478642-c132-11e5-82bc-a713b611905c"
+        }, 
+        "Versions": [
+            {
+                "Version": "$LATEST", 
+                "CodeSha256": "ujgToWKCro++DcRKEhBIT1/+aVyjHyk/tLxoya0yMhU=", 
+                "FunctionName": "slack", 
+                "MemorySize": 128, 
+                "CodeSize": 1717, 
+                "FunctionArn": "arn:aws:lambda:ap-northeast-1:123456789000:function:slack:$LATEST", 
+                "Handler": "index.handler", 
+                "Role": "arn:aws:iam::123456789000:role/lambda_exec_role", 
+                "Timeout": 3, 
+                "LastModified": "2015-11-25T17:34:10.241+0000", 
+                "Runtime": "nodejs", 
+                "Description": "post to slack"
+            }
+        ]
+    }
+}

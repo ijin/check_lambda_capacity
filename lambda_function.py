@@ -12,10 +12,28 @@ def calculate_capacity(next_marker=None):
     else:
         r = client.list_functions(MaxItems=500)
 
+    size = sum(calculate_versions_capacity(f['FunctionName']) for f in r['Functions'])
+
     if 'NextMarker' in r:
-        return sum(f['CodeSize'] for f in r['Functions']) + lambda_size_r(next_marker=r['NextMarker'])
+        return size + lambda_size_r(next_marker=r['NextMarker'])
     else:
-        return sum(f['CodeSize'] for f in r['Functions'])
+        return size
+
+def calculate_versions_capacity(function_name, next_marker=None):
+    if next_marker:
+        r = client.list_versions_by_function(
+            FunctionName=function_name, MaxItems=500, Marker=next_marker)
+    else:
+        r = client.list_versions_by_function(
+            FunctionName=function_name, MaxItems=500)
+
+    size = sum((f['CodeSize']) for f in r['Versions'])
+
+    if 'NextMarker' in r:
+        return size + calculate_versions_capacity(function_name=function_name, next_marker=r['NextMarker'])
+    else:
+        return size
+
 
 def put_cw(namespace, metric_name, value, unit):
     metric_data = {

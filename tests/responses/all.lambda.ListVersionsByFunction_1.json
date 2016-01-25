@@ -1,0 +1,25 @@
+{
+    "status_code": 200, 
+    "data": {
+        "ResponseMetadata": {
+            "HTTPStatusCode": 200, 
+            "RequestId": "b02eeab0-c132-11e5-8f95-018412810d28"
+        }, 
+        "Versions": [
+            {
+                "Version": "$LATEST", 
+                "CodeSha256": "KTsHlnU/nyWVY4U9dgCsJa0RqWXVVsns+QT2fXbahXk=", 
+                "FunctionName": "cross_account_invoke", 
+                "MemorySize": 128, 
+                "CodeSize": 498, 
+                "FunctionArn": "arn:aws:lambda:ap-northeast-1:123456789000:function:cross_account_invoke:$LATEST", 
+                "Handler": "lambda_function.lambda_handler", 
+                "Role": "arn:aws:iam::123456789000:role/lambda_exec_role", 
+                "Timeout": 5, 
+                "LastModified": "2015-11-29T12:01:07.143+0000", 
+                "Runtime": "python2.7", 
+                "Description": "invoke cross account lambda function"
+            }
+        ]
+    }
+}

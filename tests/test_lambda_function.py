@@ -1,5 +1,6 @@
 from unittest import TestCase
 from nose.tools import ok_, eq_
+from nose.tools import assert_not_equal as neq_
 #from lambda_function import lambda_size_r, put_cw
 import os
 import json
@@ -19,8 +20,14 @@ class LambdaFunctionTestCase(TestCase):
 
     def test_calculate_capacity(self):
         self.pill.prefix = 'all'
-        ok_(True)
-        eq_(1236380, lambda_function.calculate_capacity())
+        neq_(1236380, lambda_function.calculate_capacity())
+        eq_(7379387, lambda_function.calculate_capacity())
+
+    def test_calculate_versions_capacity(self):
+        self.pill.prefix = 'single'
+        f = 'hello_python'
+        neq_(0, lambda_function.calculate_versions_capacity(function_name=f))
+        eq_(6143382, lambda_function.calculate_versions_capacity(function_name=f))
 
     def test_put_cw(self):
         self.pill.prefix = ''

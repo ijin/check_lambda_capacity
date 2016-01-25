@@ -1,0 +1,25 @@
+{
+    "status_code": 200, 
+    "data": {
+        "ResponseMetadata": {
+            "HTTPStatusCode": 200, 
+            "RequestId": "b220eb58-c132-11e5-9932-f3f75d67945c"
+        }, 
+        "Versions": [
+            {
+                "Version": "$LATEST", 
+                "CodeSha256": "fdKHi9yT7K8MM6svRYDmRcyTs0JFhwTVQZbfyrxeM2s=", 
+                "FunctionName": "process_s3_form", 
+                "MemorySize": 128, 
+                "CodeSize": 609, 
+                "FunctionArn": "arn:aws:lambda:ap-northeast-1:123456789000:function:process_s3_form:$LATEST", 
+                "Handler": "lambda_function.lambda_handler", 
+                "Role": "arn:aws:iam::123456789000:role/lambda_s3_exec_role", 
+                "Timeout": 3, 
+                "LastModified": "2015-11-26T13:52:59.870+0000", 
+                "Runtime": "python2.7", 
+                "Description": "process S3 events from Cognito forms"
+            }
+        ]
+    }
+}
