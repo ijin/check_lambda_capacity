@@ -3,10 +3,12 @@ machine:
     S3: ijin
     CF: check_lambda_capacity.template
     REGION: ap-northeast-1
+dependencies:
+  pre:
+    - pip install placebo
 test:
   pre:
     - aws --version
-  override:
     - aws --region $REGION cloudformation validate-template --template-body file://$CF
 deployment:
   master:
