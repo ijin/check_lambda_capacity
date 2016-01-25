@@ -6,7 +6,7 @@ region = os.getenv('AWS_REGION','ap-northeast-1')
 client = boto3.client('lambda', region_name=region)
 cloudwatch = boto3.client('cloudwatch', region_name=region)
 
-def lambda_size_r(next_marker=None):
+def calculate_capacity(next_marker=None):
     if next_marker:
         r = client.list_functions(MaxItems=500, Marker=next_marker)
     else:
@@ -31,7 +31,7 @@ def put_cw(namespace, metric_name, value, unit):
     return r
 
 def lambda_handler(event, context):
-    size = lambda_size_r()
+    size = calculate_capacity()
     print(size)
     r = put_cw('lambda', 'size', size, 'Bytes')
     print(r)

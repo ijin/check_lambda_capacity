@@ -17,10 +17,10 @@ class LambdaFunctionTestCase(TestCase):
         lambda_function.client = self.session.client('lambda', region_name='us-east-1')
         lambda_function.cloudwatch = self.session.client('cloudwatch', region_name='us-east-1')
 
-    def test_lambda_size_r(self):
+    def test_calculate_capacity(self):
         self.pill.prefix = 'all'
         ok_(True)
-        eq_(1236380, lambda_function.lambda_size_r())
+        eq_(1236380, lambda_function.calculate_capacity())
 
     def test_put_cw(self):
         self.pill.prefix = ''
