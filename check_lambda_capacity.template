@@ -133,7 +133,8 @@
             {
               "Effect": "Allow",
               "Action": [
-                "lambda:ListFunctions"
+                "lambda:ListFunctions",
+                "lambda:ListVersionsByFunction",
               ],
               "Resource": [
                 "*"
