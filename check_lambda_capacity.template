@@ -175,8 +175,12 @@
         "MemorySize": 256,
         "Timeout": 15,
         "Code": {
-          "S3Bucket": "ijin",
-          "S3Key": "aws/lambda/check_lambda_capacity/lambda_function.zip"
+          "S3Bucket": {
+            "Ref": "S3Bucket"
+          },
+          "S3Key": {
+            "Ref": "S3Key"
+          }
         }
       },
       "Metadata": {
@@ -275,11 +279,23 @@
     "CapacityAlarmThreshold": {
       "Description": "Capacity (Bytes) thershold for CloudWatch alarm",
       "Type": "Number",
-      "Default": 100000000
+      "Default": 100000000,
+      "MinValue": 1,
+      "MaxValue": 1610612736
     },
     "SNSArn": {
       "Description": "Existing SNS topic ARN to send CloudWatch alarms (optional)",
       "Type": "String"
+    },
+    "S3Bucket": {
+      "Description": "s3 bucket which contains the lambda function",
+      "Type": "String",
+      "Default": "ijin"
+    },
+    "S3Key": {
+      "Description": "s3 key path for lambda function",
+      "Type": "String",
+      "Default": "aws/lambda/check_lambda_capacity/lambda_function.zip"
     }
   },
   "Conditions": {
