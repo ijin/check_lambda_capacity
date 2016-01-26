@@ -4,6 +4,9 @@
 
 Lambda function (and CloudFormation template) which checks the total capacity of all Lambda functions in a region.
 
+<a href="https://console.aws.amazon.com/cloudformation/home?region=ap-northeast-1#/stacks/new?stackName=check-lambda-capacity&templateURL=https://s3-ap-northeast-1.amazonaws.com/ijin/aws/lambda/check_lambda_capacity/check_lambda_capacity.template">
+<img src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png"></a>
+
 ## Why
 
 [AWS Lambda Deployment Limits](http://docs.aws.amazon.com/lambda/latest/dg/limits.html#limits-list) as of `2015/1/14`.
