@@ -2,7 +2,7 @@
 
 [![Build status](https://circleci.com/gh/ijin/check_lambda_capacity.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/ijin/check_lambda_capacity)
 
-Lambda function (and CloudFormation template) which checks the total capacity of all Lambda functions in a specific region.
+AWS Lambda function which checks the total capacity of all Lambda functions in a specific region and publishes the metric to CloudWatch. A CloudFormation template is included to bootstrap the process.
 
 <a href="https://console.aws.amazon.com/cloudformation/home?region=ap-northeast-1#/stacks/new?stackName=check-lambda-capacity&templateURL=https://s3-ap-northeast-1.amazonaws.com/ijin/aws/lambda/check_lambda_capacity/check_lambda_capacity.template">
 <img src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png"></a>
@@ -20,7 +20,7 @@ A CloudFormation template is provided to help with the creation of necessary res
 
 ## Notes
 
-This lambda function should be run using [`Scheduled events`](http://docs.aws.amazon.com/lambda/latest/dg/with-scheduled-events.html), but currently configuration is only possible through the AWS managemnt console.
+This lambda function should be run using [`Scheduled events`](http://docs.aws.amazon.com/lambda/latest/dg/with-scheduled-events.html), but CloudFormation support is currently unavailable so we need to explicitly configure this.
 
 # License
 
