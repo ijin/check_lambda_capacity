@@ -9,8 +9,8 @@ AWS Lambda function which checks the total capacity of all Lambda functions in a
 
 ## Why
 
-[AWS Lambda Deployment Limits](http://docs.aws.amazon.com/lambda/latest/dg/limits.html#limits-list) as of `2015/1/14`.
-The total size of all the deployment packages that can be uploaded per region is a mere **1.5GB**, which is much too small if you are including libraries and utilizing versioning for you lambda functions. We need to monitor its total usage size. 
+[AWS Lambda Deployment Limits](http://docs.aws.amazon.com/lambda/latest/dg/limits.html#limits-list).
+The total size of all the deployment packages that can be uploaded per region is **75GB**. If you are including libraries and utilizing versioning for you lambda functions, you might eventually reach this limit. Monitor the total usage size is a good idea. 
 
 ## How
 
